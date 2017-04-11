@@ -41,7 +41,7 @@ We are happy to receive bug reports, fixes, documentation enhancements,
 and other improvements.
 
 Please report bugs via the
-[github issue tracker](http://github.com/timeserieslab/learn/issues).
+[github issue tracker](http://github.com/carldata/learn/issues).
 
 
 
