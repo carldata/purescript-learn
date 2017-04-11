@@ -1,0 +1,23 @@
+{
+  "name": "purescript-learn",
+  "homepage": "https://github.com/carldata/purescript-learn",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/carldata/purescript-learn"
+  },
+  "description": "Machine Learning in PureScript",
+  "license": "Apache-2.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "output"
+  ],
+  "dependencies": {
+    "purescript-prelude": "^3.0.0"
+  },
+  "devDependencies": {
+    "purescript-console": "^3.0.0",
+    "purescript-psci-support": "^3.0.0"
+  }
+}
