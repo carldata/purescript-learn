@@ -8,4 +8,4 @@ install:
 script:
   - pulp build && pulp test
 notifications:
-email: false
+  email: false
