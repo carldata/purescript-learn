@@ -20,8 +20,8 @@
     "purescript-integers": "^3.0.0",
     "purescript-math": "^2.0.0",
     "purescript-maybe": "^3.0.0",
-    "purescript-linear-algebra": "^0.0.1",
-    "purescript-stats": "^0.0.1"
+    "purescript-linear-algebra": "^0.0.2",
+    "purescript-stats": "^0.0.2"
   },
   "devDependencies": {
     "purescript-assert": "^3.0.0",

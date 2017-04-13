@@ -3,6 +3,7 @@ module Test.Learn.Unsupervised.OutlierClassifier (testOutlierClassifier) where
 import Prelude
 import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (log, CONSOLE)
+import Data.Array as A
 import Data.Maybe (fromJust)
 import Partial.Unsafe (unsafePartial)
 import Test.Assert (assert, ASSERT)
@@ -19,4 +20,4 @@ testOutlierClassifier = do
     let validate1 = unsafePartial $ fromJust $ M.fromArray 4 1 [1.0, 1.1, 90.0, 1.2]
     let model = learn test1
     let y1 = predict model validate1
-    assert $ y1.nrows == 4
+    assert $ A.length y1 == 4
