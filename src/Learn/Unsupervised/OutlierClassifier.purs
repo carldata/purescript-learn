@@ -3,7 +3,7 @@
 -- |
 module Learn.Unsupervised.OutlierClassifier
   ( Model
-  , learn
+  , train
   , predict
   , predict1
   ) where
@@ -25,8 +25,8 @@ instance showModel :: Show Model where
 
 
 -- Convert timestamp in seconds into the DateTime
-learn :: Matrix Number -> Model
-learn xs = Model $ mkDistr <$> columns xs
+train :: Matrix Number -> Model
+train xs = Model $ mkDistr <$> columns xs
   where mkDistr = (fromMaybe standard <<< fromSample)
 
 
