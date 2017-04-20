@@ -7,7 +7,12 @@
   </img>
 </a>
 
-Machine Learning base functionality
+Machine Learning for Just In Time learning. JIT means that machine learning that instead of building models
+on the backend while receiving data, we only apply ML to data we want to process. 
+We can also retrain models during data editing. 
+For example we can in interactive way edit time series. After few corection ML will train model and fix next
+points automatically.
+
 
 
 ## Installation
@@ -19,7 +24,7 @@ bower install purescript-learn
 ## Features
 
   * Anomaly detection
-    * [ ] Outliers
+    * [x] Outliers
 
 
 ## Documentation
