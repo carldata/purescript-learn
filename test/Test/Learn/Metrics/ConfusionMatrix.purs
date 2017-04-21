@@ -5,7 +5,7 @@ import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (log, CONSOLE)
 import Test.Assert (assert, ASSERT)
 
-import Learn.Metrics.ConfusionMatrix (calculate, toString)
+import Learn.Metrics.ConfusionMatrix (calculate)
 
 
 testConfusionMatrix :: forall eff. Eff (console :: CONSOLE, assert :: ASSERT | eff) Unit
