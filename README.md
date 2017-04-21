@@ -10,7 +10,7 @@
 Just In Time Machine (Statistical) Learning. 
 
 JIT means that instead of building models on the backend while receiving data, we only apply ML to data we want to process. 
-This gives us the flexibility to fast retrain models while for example user is editing data.
+This gives us the flexibility to fast retrain models while for example user is editing the data.
 
 
 
