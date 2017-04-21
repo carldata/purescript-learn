@@ -6,9 +6,9 @@ import Control.Monad.Eff.Console (CONSOLE)
 
 import Test.Assert (ASSERT)
 
-import Test.Learn.Unsupervised.OutlierClassifier (testOutlierClassifier)
+import Test.Learn.Unsupervised.OutlierDetection (testOutliers)
 
 
 main :: ∀ eff. Eff (console :: CONSOLE, assert :: ASSERT | eff) Unit
 main = do
-  testOutlierClassifier
+  testOutliers

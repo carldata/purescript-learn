@@ -1,4 +1,4 @@
-module Test.Learn.Unsupervised.OutlierClassifier (testOutlierClassifier) where
+module Test.Learn.Unsupervised.OutlierDetection (testOutliers) where
 
 import Prelude
 import Control.Monad.Eff (Eff)
@@ -8,14 +8,14 @@ import Data.Maybe (fromJust)
 import Partial.Unsafe (unsafePartial)
 import Test.Assert (assert, ASSERT)
 import LinearAlgebra.Matrix as M
-import Learn.Unsupervised.OutlierClassifier (train, predict)
+import Learn.Unsupervised.OutlierDetection (train, predict)
 
 
-testOutlierClassifier :: forall eff. Eff (console :: CONSOLE, assert :: ASSERT | eff) Unit
-testOutlierClassifier = do
+testOutliers :: forall eff. Eff (console :: CONSOLE, assert :: ASSERT | eff) Unit
+testOutliers = do
 
 
-    log "build model"
+    log "Build model"
     let test1 = unsafePartial $ fromJust $ M.fromArray 5 1 [1.0, 1.1, 0.9, 1.2, 1.0]
     let validate1 = unsafePartial $ fromJust $ M.fromArray 4 1 [1.0, 0.8, 9.0, 1.2]
     let model = train test1

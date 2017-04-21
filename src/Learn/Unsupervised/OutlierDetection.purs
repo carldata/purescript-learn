@@ -1,7 +1,6 @@
--- | Outlier classifier 
+-- | Outlier detection 
 -- | This model is based on the assumption that features are independed an normaly distributed
--- |
-module Learn.Unsupervised.OutlierClassifier
+module Learn.Unsupervised.OutlierDetection
   ( Model
   , train
   , predict
