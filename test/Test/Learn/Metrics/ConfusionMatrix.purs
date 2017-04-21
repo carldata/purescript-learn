@@ -5,7 +5,11 @@ import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (log, CONSOLE)
 import Test.Assert (assert, ASSERT)
 
-import Learn.Metrics.ConfusionMatrix (calculate)
+import Learn.Metrics.ConfusionMatrix ( calculate
+                                     , accuracy
+                                     , precision
+                                     , recall
+                                     , fscore )
 
 
 testConfusionMatrix :: forall eff. Eff (console :: CONSOLE, assert :: ASSERT | eff) Unit
@@ -20,3 +24,11 @@ testConfusionMatrix = do
     assert $ cm.fp == 1
     assert $ cm.fn == 1
     assert $ cm.tp == 2
+    log "Precision"
+    assert $ precision cm == 2.0/3.0
+    log "Recall"
+    assert $ recall cm == 2.0/3.0
+    log "Accuracy"
+    assert $ accuracy cm == 4.0/6.0
+    log "F Score"
+    assert $ fscore cm == 2.0 / 3.0

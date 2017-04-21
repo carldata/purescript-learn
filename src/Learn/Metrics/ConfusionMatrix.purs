@@ -1,11 +1,18 @@
 -- | computer confusion matrix to evaluate the accuracy of a classification
 module Learn.Metrics.ConfusionMatrix ( ConfusionMatrix
+                                      -- Calculate and show data
                                      , calculate
                                      , toString
+                                     -- Metrics
+                                     , accuracy
+                                     , precision
+                                     , recall
+                                     , fscore                                     
                                      ) where
 
 import Prelude
 import Data.Array as A
+import Data.Int (toNumber)
 import Data.Tuple (Tuple(..))
 import LinearAlgebra.Vector (Vector)
   
@@ -35,3 +42,22 @@ calculate xs ys = A.foldl updateMatrix empty $ A.zip xs ys
     updateMatrix mat (Tuple true false) = mat { fn = mat.fn+1 }
     updateMatrix mat (Tuple false true) = mat { fp = mat.fp+1 }
     updateMatrix mat (Tuple false false) = mat { tn = mat.tn+1 }
+
+-- | precision = TP / (TP + FP)    
+precision :: ConfusionMatrix -> Number
+precision mat = (toNumber mat.tp) / (toNumber (mat.tp + mat.fp))
+
+-- | recall = TP / (TP + TN)    
+recall :: ConfusionMatrix -> Number
+recall mat = (toNumber mat.tp) / (toNumber (mat.tp + mat.fn))
+
+-- | accuracy = (TP + TN) / (TP + TN + FP + FN)
+accuracy :: ConfusionMatrix -> Number
+accuracy mat = (toNumber (mat.tp + mat.tn)) / (toNumber (mat.tp + mat.tn + mat.fp + mat.fn))
+
+-- | F1 score = 2 * (precision * recall) / (precision + recall)
+fscore :: ConfusionMatrix -> Number
+fscore mat = 2.0 * (p * r) / (p + r)
+  where
+    p = precision mat
+    r = recall mat

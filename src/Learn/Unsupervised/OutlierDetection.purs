@@ -10,9 +10,10 @@ module Learn.Unsupervised.OutlierDetection
 import Prelude
 import Data.Array as A
 import Data.Maybe (fromMaybe)
+
 import LinearAlgebra.Matrix (Matrix, columns, rows)
 import LinearAlgebra.Vector (Vector)
-import Statistics.Distribution (density)
+import Statistics.Distribution (cumulative, complCumulative)
 import Statistics.Distribution.Normal (NormalDistribution, fromSample, standard)
 
 
@@ -36,6 +37,9 @@ predict m xs = predict1 m <$> rows xs
 
 -- | Predict value for a single sample
 predict1 :: Model -> Vector Number -> Number
-predict1 (Model ds) v = A.foldl (*) 1.0 $ A.zipWith density ds v
+predict1 (Model ds) vs = A.foldl (*) 1.0 $ A.zipWith prob ds vs
+  where 
+    prob :: NormalDistribution -> Number -> Number
+    prob distr v = 2.0 * (min (cumulative distr v)  (complCumulative distr v))
   
     

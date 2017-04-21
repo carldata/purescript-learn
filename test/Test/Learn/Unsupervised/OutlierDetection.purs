@@ -21,3 +21,5 @@ testOutliers = do
     let model = train test1
     let y1 = predict model validate1
     assert $ A.length y1 == 4
+    -- Probability is in range (0.0, 1.0)
+    assert $ A.foldl (&&) true $ map (\x -> x >= 0.0 && x <= 1.0) y1
