@@ -51,7 +51,6 @@ Please report bugs via the
 [github issue tracker](http://github.com/carldata/learn/issues).
 
 
-
 # Redistributing
 
 purescript-learn source code is distributed under the Apache-2.0 license.

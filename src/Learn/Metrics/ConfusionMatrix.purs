@@ -1,4 +1,4 @@
--- | computer confusion matrix to evaluate the accuracy of a classification
+-- | Compute confusion matrix to evaluate the accuracy of any classifier.
 module Learn.Metrics.ConfusionMatrix ( ConfusionMatrix
                                       -- Calculate and show data
                                      , calculate
