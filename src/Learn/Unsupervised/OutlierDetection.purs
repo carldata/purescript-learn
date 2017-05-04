@@ -24,7 +24,7 @@ instance showModel :: Show Model where
   show (Model ds)= "Model: " <> show ds
 
 
--- | Convert timestamp in seconds into the DateTime
+-- | Train model (estimate distribution parameters) for each feature.
 train :: Matrix Number -> Model
 train xs = Model $ mkDistr <$> columns xs
   where mkDistr = (fromMaybe standard <<< fromSample)
