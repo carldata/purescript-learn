@@ -7,7 +7,7 @@
   </img>
 </a>
 
-Just In Time Machine (Statistical) Learning. 
+Just In Time Machine Learning. 
 
 JIT means that instead of building models on the backend while receiving data, we only apply ML to data we want to process. 
 This gives us the flexibility to fast retrain models while for example user is editing the data.
@@ -22,6 +22,10 @@ bower install purescript-learn
 
 ## Features
 
+  * Regression
+    * [ ] Linear regression
+  * Classification
+    * [ ] Logistic regression
   * Anomaly detection
     * [x] Outlier Detection (Unsupervised)
   * Metrics
