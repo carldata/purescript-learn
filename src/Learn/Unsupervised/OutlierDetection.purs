@@ -1,5 +1,5 @@
 -- | Outlier detection 
--- | This model is based on the assumption that features are independed an normaly distributed
+-- | This model is based on the assumption that features are independed and normaly distributed
 module Learn.Unsupervised.OutlierDetection
   ( Model
   , train
@@ -24,7 +24,7 @@ instance showModel :: Show Model where
   show (Model ds)= "Model: " <> show ds
 
 
--- Convert timestamp in seconds into the DateTime
+-- | Convert timestamp in seconds into the DateTime
 train :: Matrix Number -> Model
 train xs = Model $ mkDistr <$> columns xs
   where mkDistr = (fromMaybe standard <<< fromSample)
