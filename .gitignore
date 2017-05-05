@@ -6,3 +6,4 @@
 /.psa*
 /.history
 /generated-docs
+.purs-repl
