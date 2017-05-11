@@ -22,7 +22,7 @@ testIO = do
     
 fromFileTest :: ∀ eff. Eff (console :: CONSOLE, assert :: ASSERT, exception :: EXCEPTION, fs :: FS  | eff) Unit
 fromFileTest = do
-  log "Test load linear1.csv"
+  log " * Test load linear1.csv"
   csv <- readTextFile UTF8 "testdata/linear1.csv"
   let ds = IO.fromCsv csv
   assert $ M.nrows ds == 500

@@ -15,7 +15,7 @@ testOutliers :: forall eff. Eff (console :: CONSOLE, assert :: ASSERT | eff) Uni
 testOutliers = do
 
 
-    log "Build model"
+    log "\n# Test outlier detection"
     let test1 = unsafePartial $ fromJust $ M.fromArray 5 1 [1.0, 1.1, 0.9, 1.2, 1.0]
     let validate1 = unsafePartial $ fromJust $ M.fromArray 4 1 [1.0, 0.8, 9.0, 1.2]
     let model = train test1

@@ -16,7 +16,7 @@ testConfusionMatrix :: forall eff. Eff (console :: CONSOLE, assert :: ASSERT | e
 testConfusionMatrix = do
 
 
-    log "Build model"
+    log "\n# Test Confusion Matrix"
     let expected1 = [true, true, true, false, false, false]
     let predicted1 = [true, true, false, false, false, true]
     let cm = calculate expected1 predicted1
@@ -24,11 +24,11 @@ testConfusionMatrix = do
     assert $ cm.fp == 1
     assert $ cm.fn == 1
     assert $ cm.tp == 2
-    log "Precision"
+    log " * Precision"
     assert $ precision cm == 2.0/3.0
-    log "Recall"
+    log " * Recall"
     assert $ recall cm == 2.0/3.0
-    log "Accuracy"
+    log " * Accuracy"
     assert $ accuracy cm == 4.0/6.0
-    log "F Score"
+    log " * F Score"
     assert $ fscore cm == 2.0 / 3.0

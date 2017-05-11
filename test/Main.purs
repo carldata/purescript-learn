@@ -12,6 +12,7 @@ import Test.Learn.Math.Vector (testVector)
 import Test.Learn.IO (testIO)
 import Test.Learn.Metrics (testMetrics)
 import Test.Learn.Metrics.ConfusionMatrix (testConfusionMatrix)
+import Test.Learn.Supervised.LinearRegression (testLinearRegression)
 import Test.Learn.Unsupervised.OutlierDetection (testOutliers)
 import Test.PerfTest (perfTests)
 
@@ -22,6 +23,7 @@ main = do
   testMatrix
   testIO
   testMetrics
+  testLinearRegression
   testOutliers  
   testConfusionMatrix
   perfTests  
