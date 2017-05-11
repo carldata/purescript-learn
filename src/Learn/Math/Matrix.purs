@@ -12,12 +12,15 @@ module Learn.Math.Matrix
   , row
   , columns
   , rows
+  , splitCols
+  , splitRows
   -- * Mapping over matrix
   ) where
 
 import Prelude
 import Data.Array as A 
 import Data.Maybe (Maybe(..))
+import Data.Tuple (Tuple(..))
 import Learn.Math.Vector (Vector)
 
 
@@ -86,3 +89,13 @@ columns :: ∀ a. Matrix a -> Array (Vector a)
 columns mat = do 
   i <- A.range 0 (ncols mat - 1)
   pure $ column i mat
+
+
+-- | Split matrix along the columns 
+splitCols :: ∀ a. Int ->  Matrix a -> Tuple (Matrix a) (Matrix a)
+splitCols n mat = Tuple mat mat
+
+
+-- | Split matrix along the rows
+splitRows :: ∀ a. Int ->  Matrix a -> Tuple (Matrix a) (Matrix a)
+splitRows n mat = Tuple mat mat
