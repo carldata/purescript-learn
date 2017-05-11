@@ -20,7 +20,6 @@
     "purescript-integers": "^3.0.0",
     "purescript-math": "^2.0.0",
     "purescript-maybe": "^3.0.0",
-    "purescript-linear-algebra": "^0.3.0",
     "purescript-stats": "^0.2.0"
   },
   "devDependencies": {

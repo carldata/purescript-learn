@@ -6,7 +6,7 @@ import Data.Int (toNumber)
 import Data.Maybe (fromMaybe)
 import Math (pow)
 
-import LinearAlgebra.Vector as V
+import Learn.Math.Vector as V
 
 
 -- | Calculate Mean Square Error

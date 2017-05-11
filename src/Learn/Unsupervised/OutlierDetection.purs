@@ -11,8 +11,8 @@ import Prelude
 import Data.Array as A
 import Data.Maybe (fromMaybe)
 
-import LinearAlgebra.Matrix (Matrix, columns, rows)
-import LinearAlgebra.Vector (Vector)
+import Learn.Math.Matrix (Matrix, columns, rows)
+import Learn.Math.Vector (Vector)
 import Statistics.Distribution (cumulative, complCumulative)
 import Statistics.Distribution.Normal (NormalDistribution, fromSample, standard)
 

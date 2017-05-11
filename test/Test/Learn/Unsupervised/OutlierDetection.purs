@@ -7,7 +7,7 @@ import Data.Array as A
 import Data.Maybe (fromJust)
 import Partial.Unsafe (unsafePartial)
 import Test.Assert (assert, ASSERT)
-import LinearAlgebra.Matrix as M
+import Learn.Math.Matrix as M
 import Learn.Unsupervised.OutlierDetection (train, predict)
 
 
