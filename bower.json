@@ -20,11 +20,13 @@
     "purescript-integers": "^3.0.0",
     "purescript-math": "^2.0.0",
     "purescript-maybe": "^3.0.0",
-    "purescript-stats": "^0.2.0"
+    "purescript-stats": "^0.2.0",
+    "purescript-strings": "^3.0.0"
   },
   "devDependencies": {
     "purescript-assert": "^3.0.0",
     "purescript-console": "^3.0.0",
+    "purescript-node-fs-aff": "^4.0.0",
     "purescript-psci-support": "^3.0.0"
   }
 }

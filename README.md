@@ -31,6 +31,8 @@ bower install purescript-learn
   * Metrics
     * [x] Confusion matrix
     * [x] F score
+  * IO
+    * [x] Load data from CSV
 
 
 ## Documentation
