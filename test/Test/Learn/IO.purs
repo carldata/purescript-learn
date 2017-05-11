@@ -25,5 +25,5 @@ fromFileTest = do
   log "Test load linear1.csv"
   csv <- readTextFile UTF8 "testdata/linear1.csv"
   let ds = IO.fromCsv csv
-  assert $ M.nrows ds == 97
+  assert $ M.nrows ds == 500
   assert $ M.ncols ds == 2
