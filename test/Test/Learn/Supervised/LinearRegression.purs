@@ -10,7 +10,7 @@ import Node.FS.Sync (readTextFile)
 import Test.Assert (assert, ASSERT)
 
 import Learn.IO as IO
-import Learn.Supervised.LinearRegression (coefficients, train)
+-- import Learn.Supervised.LinearRegression (coefficients, train)
 
 
 testLinearRegression :: forall eff. Eff (console :: CONSOLE, assert :: ASSERT, exception :: EXCEPTION, fs :: FS  | eff) Unit

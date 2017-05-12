@@ -5,6 +5,7 @@ import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (log, CONSOLE)
 import Data.Maybe (Maybe(..), fromMaybe, isJust, isNothing)
 import Test.Assert (assert, ASSERT)
+
 import Learn.Math.Matrix as M
 
 
@@ -18,6 +19,8 @@ testMatrix = do
     testGetValue
     testGetCol
     testColumns
+    testSliceColumns
+    testSliceRows
 
 
 testCreate :: forall eff. Eff (console :: CONSOLE, assert :: ASSERT | eff) Unit
@@ -69,3 +72,21 @@ testColumns = do
     let mat = fromMaybe (M.zeros 1 1) $ M.fromArray 2 3 [1.0, 2.0, 3.0, 4.0, 5.0, 6.0]
     assert $ M.columns mat == [[1.0, 4.0], [2.0, 5.0], [3.0, 6.0]]
     
+
+testSliceColumns :: forall eff. Eff (console :: CONSOLE, assert :: ASSERT | eff) Unit
+testSliceColumns = do
+    log " * Slice columns"
+    let mat = fromMaybe (M.zeros 1 1) $ M.fromArray 2 3 [1.0, 2.0, 3.0, 4.0, 5.0, 6.0]
+    let expected = fromMaybe (M.zeros 1 1) $ M.fromArray 2 2 [1.0, 2.0, 4.0, 5.0]
+    log $ show $ M.sliceCols 0 1 mat
+    assert $ M.sliceCols 0 1 mat == expected
+    
+
+testSliceRows :: forall eff. Eff (console :: CONSOLE, assert :: ASSERT | eff) Unit
+testSliceRows = do
+    log " * Slice rows"
+    let mat = fromMaybe (M.zeros 1 1) $ M.fromArray 3 2 [1.0, 2.0, 3.0, 4.0, 5.0, 6.0]
+    let expected = fromMaybe (M.zeros 1 1) $ M.fromArray 2 2 [1.0, 2.0, 3.0, 4.0]
+    log $ show $ M.sliceRows 0 1 mat
+    assert $ M.sliceRows 0 1 mat == expected
+        
