@@ -9,7 +9,9 @@ module Learn.Supervised.LinearRegression
 
 import Prelude
 import Data.Array as A 
+import Data.Int (toNumber)
 import Data.Maybe (fromMaybe)
+import Math (abs)
 
 import Learn.Math.Matrix as M 
 import Learn.Math.Vector as V
@@ -33,7 +35,7 @@ coefficients (Model cs) = cs
 train :: Matrix     -- ^ Train data
       -> Vector     -- ^ Target values
       -> Model      -- ^ Trained model
-train xs y = Model $ gradientDescent initCoef (M.insertCol 0 b xs) y
+train xs y = Model $ gradientDescent initCoef 10000 (M.insertCol 0 b xs) y
   where 
     initCoef = A.replicate (M.ncols xs + 1) 1.0
     b = A.replicate (M.ncols xs + 1) 1.0
@@ -53,7 +55,7 @@ predict1 (Model cs) x = fromMaybe 0.0 $ V.dot cs (A.cons 1.0 x)
 
 -- Learning rate
 alpha :: Number
-alpha = 0.01
+alpha = 0.03
 
 -- Stop if error less then epsilon
 epsilon :: Number
@@ -73,12 +75,23 @@ score cs x y = h - y
 
 -- Learn model coefficients using gradient descent algorithm
 gradientDescent :: Vector   -- ^ Model coefficients
+                -> Int      -- ^ Number of steps
                 -> Matrix   -- ^ Train data
                 -> Vector   -- ^ Labels 
                 -> Vector   -- ^ Trained model coefficients
-gradientDescent cs xs y = cs
+gradientDescent cs steps xs y = if steps == 0
+                                then cs' 
+                                else gradientDescent cs' (steps-1) xs y
   where
-    -- norm = alpha / (M.nrows xs)
     err = A.zipWith f (M.rows xs) y
     f row y1 = V.mulScalar (score cs row y1) row
-    c = map V.sum $ M.columns xs
+    norm = alpha / toNumber (M.nrows xs)
+    gradient = map V.sum (M.columns xs)
+    cs' = V.diff cs (V.mulScalar norm gradient)
+
+
+-- Helper summing absolute values
+-- Values don't have to be equal. It is enough if they are
+-- closer then epsilon value
+absSum :: Vector -> Number
+absSum vs = V.sum $ map abs vs
