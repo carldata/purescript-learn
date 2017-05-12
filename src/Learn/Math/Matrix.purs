@@ -2,6 +2,8 @@ module Learn.Math.Matrix
   ( Matrix 
   -- * Constructors
   , fromArray
+  , fromColumn
+  , fromRow
   , replicate
   , zeros
   -- * Access data
@@ -17,12 +19,14 @@ module Learn.Math.Matrix
   , toVector
   -- * Modify data
   , insertCol
+  -- * Matrix operations
+  , multiply
   ) where
 
 import Prelude
 import Data.Array as A 
-import Data.Maybe (Maybe(..))
-import Learn.Math.Vector (Vector)
+import Data.Maybe (Maybe(..), fromMaybe)
+import Learn.Math.Vector (Vector, dot)
 
 
 -- | Dense Matrix implementation
@@ -69,6 +73,16 @@ zeros r c = Dense r' c' (A.replicate (r' * c') 0.0)
 fromArray :: ∀ a. Int -> Int -> Array a -> Maybe (Matrix a)
 fromArray r c vs | r > 0 && c > 0 && r*c == A.length vs = Just (Dense r c vs)
                  | otherwise = Nothing
+
+
+-- | Create matrix from column
+fromColumn :: ∀ a. Vector a -> Matrix a 
+fromColumn vs = Dense (A.length vs) 1 vs
+
+
+-- | Create matrix from row
+fromRow :: ∀ a. Vector a -> Matrix a 
+fromRow vs = Dense 1 (A.length vs) vs
 
 
 -- | Get specific column as a vector. Index is 0 based
@@ -137,3 +151,15 @@ insertCol i v (Dense nr nc vs) = Dense nr (nc+1) ds
     f :: Int -> Array a
     f r = A.slice (r*nc) (r*nc+i) vs <> A.slice r (r+1) v <> A.slice (r*nc+i) ((r+1)*nc) vs
     
+
+-- | Multiply 2 matrices. The have to have compatible dimmensions
+multiply :: Matrix Number -> Matrix Number -> Matrix Number
+multiply xs ys
+  | ncols xs /= nrows ys = zeros 1 1 
+  | otherwise = Dense (nrows xs) (ncols ys) $ multiply' (rows xs) (columns ys)
+
+multiply' :: Array (Vector Number) -> Array (Vector Number) -> Vector Number
+multiply' rx cy = do 
+  r <- rx 
+  c <- cy
+  pure $ fromMaybe 0.0 (dot r c)

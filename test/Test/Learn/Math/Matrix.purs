@@ -22,6 +22,7 @@ testMatrix = do
     testSliceColumns
     testSliceRows
     testInsertColumn
+    testMultiply
 
 
 testCreate :: forall eff. Eff (console :: CONSOLE, assert :: ASSERT | eff) Unit
@@ -98,4 +99,16 @@ testInsertColumn = do
     let expected2 = fromMaybe (M.zeros 1 1) $ M.fromArray 2 3 [3.0, 1.0, 2.0, 6.0, 4.0, 5.0]
     assert $ M.insertCol 2 [3.0, 6.0] mat == expected1
     assert $ M.insertCol 0 [3.0, 6.0] mat == expected2
+
+
+testMultiply :: forall eff. Eff (console :: CONSOLE, assert :: ASSERT | eff) Unit
+testMultiply = do
+    log " * Multiply matrices"
+    let m1 = fromMaybe (M.zeros 1 1) $ M.fromArray 2 3 [1.0, 2.0, 3.0, 4.0, 5.0, 6.0]
+    let m2 = fromMaybe (M.zeros 1 1) $ M.fromArray 3 2 [1.0, 2.0, 3.0, 4.0, 5.0, 6.0]
+    let expected = fromMaybe (M.zeros 1 1) $ M.fromArray 2 2 [22.0, 28.0, 49.0, 64.0]
+    assert $ M.multiply m1 m2 == expected
+
+
+
         

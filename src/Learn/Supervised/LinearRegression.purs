@@ -35,7 +35,7 @@ coefficients (Model cs) = cs
 train :: Matrix     -- ^ Train data
       -> Vector     -- ^ Target values
       -> Model      -- ^ Trained model
-train xs y = Model $ gradientDescent initCoef 10000 (M.insertCol 0 b xs) y
+train xs y = Model $ gradientDescent initCoef 1 (M.insertCol 0 b xs) y
   where 
     initCoef = A.replicate (M.ncols xs + 1) 1.0
     b = A.replicate (M.ncols xs + 1) 1.0
@@ -55,7 +55,7 @@ predict1 (Model cs) x = fromMaybe 0.0 $ V.dot cs (A.cons 1.0 x)
 
 -- Learning rate
 alpha :: Number
-alpha = 0.03
+alpha = 1.0
 
 -- Stop if error less then epsilon
 epsilon :: Number
@@ -79,12 +79,12 @@ gradientDescent :: Vector   -- ^ Model coefficients
                 -> Matrix   -- ^ Train data
                 -> Vector   -- ^ Labels 
                 -> Vector   -- ^ Trained model coefficients
-gradientDescent cs steps xs y = if steps == 0
-                                then cs' 
-                                else gradientDescent cs' (steps-1) xs y
+gradientDescent cs steps xs y = A.concat err --cs' --if steps <= 1
+                                -- then cs' 
+                                -- else gradientDescent cs' (steps-1) xs y
   where
     err = A.zipWith f (M.rows xs) y
-    f row y1 = V.mulScalar (score cs row y1) row
+    f row y1 = row --V.mulScalar (score cs row y1) row
     norm = alpha / toNumber (M.nrows xs)
     gradient = map V.sum (M.columns xs)
     cs' = V.diff cs (V.mulScalar norm gradient)
