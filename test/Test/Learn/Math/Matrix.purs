@@ -21,6 +21,7 @@ testMatrix = do
     testColumns
     testSliceColumns
     testSliceRows
+    testInsertColumn
 
 
 testCreate :: forall eff. Eff (console :: CONSOLE, assert :: ASSERT | eff) Unit
@@ -78,7 +79,6 @@ testSliceColumns = do
     log " * Slice columns"
     let mat = fromMaybe (M.zeros 1 1) $ M.fromArray 2 3 [1.0, 2.0, 3.0, 4.0, 5.0, 6.0]
     let expected = fromMaybe (M.zeros 1 1) $ M.fromArray 2 2 [1.0, 2.0, 4.0, 5.0]
-    log $ show $ M.sliceCols 0 1 mat
     assert $ M.sliceCols 0 1 mat == expected
     
 
@@ -87,6 +87,15 @@ testSliceRows = do
     log " * Slice rows"
     let mat = fromMaybe (M.zeros 1 1) $ M.fromArray 3 2 [1.0, 2.0, 3.0, 4.0, 5.0, 6.0]
     let expected = fromMaybe (M.zeros 1 1) $ M.fromArray 2 2 [1.0, 2.0, 3.0, 4.0]
-    log $ show $ M.sliceRows 0 1 mat
     assert $ M.sliceRows 0 1 mat == expected
+    
+
+testInsertColumn :: forall eff. Eff (console :: CONSOLE, assert :: ASSERT | eff) Unit
+testInsertColumn = do
+    log " * Insert column"
+    let mat = fromMaybe (M.zeros 1 1) $ M.fromArray 2 2 [1.0, 2.0, 4.0, 5.0]
+    let expected1 = fromMaybe (M.zeros 1 1) $ M.fromArray 2 3 [1.0, 2.0, 3.0, 4.0, 5.0, 6.0]
+    let expected2 = fromMaybe (M.zeros 1 1) $ M.fromArray 2 3 [3.0, 1.0, 2.0, 6.0, 4.0, 5.0]
+    assert $ M.insertCol 2 [3.0, 6.0] mat == expected1
+    assert $ M.insertCol 0 [3.0, 6.0] mat == expected2
         

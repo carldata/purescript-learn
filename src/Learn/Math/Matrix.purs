@@ -14,13 +14,14 @@ module Learn.Math.Matrix
   , rows
   , sliceCols
   , sliceRows
-  -- * Mapping over matrix
+  , toVector
+  -- * Modify data
+  , insertCol
   ) where
 
 import Prelude
 import Data.Array as A 
 import Data.Maybe (Maybe(..))
-import Data.Tuple (Tuple(..))
 import Learn.Math.Vector (Vector)
 
 
@@ -43,6 +44,10 @@ nrows (Dense r _ _) = r
 -- | Number of cols in matrix
 ncols :: ∀ a. Matrix a -> Int 
 ncols (Dense _ c _) = c
+
+-- | Convert Matrix to Vector
+toVector :: ∀ a. Matrix a -> Vector a 
+toVector (Dense _ _ vs) = vs
 
 
 -- | Create array of given dimmension containing replicated value
@@ -122,3 +127,13 @@ sliceRows :: ∀ a
 sliceRows r1 r2 (Dense nr nc vs) = Dense (r2-r1+1) nc ds
   where
     ds = A.slice (r1*nc) ((r2+1)*nc) vs
+
+
+-- | Insert new column at a given index to the matrix 
+insertCol :: ∀ a. Int -> Vector a -> Matrix a -> Matrix a 
+insertCol i v (Dense nr nc vs) = Dense nr (nc+1) ds
+  where 
+    ds = A.concatMap f (A.range 0 (nr-1))
+    f :: Int -> Array a
+    f r = A.slice (r*nc) (r*nc+i) vs <> A.slice r (r+1) v <> A.slice (r*nc+i) ((r+1)*nc) vs
+    

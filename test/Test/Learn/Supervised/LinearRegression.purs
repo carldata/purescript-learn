@@ -10,7 +10,8 @@ import Node.FS.Sync (readTextFile)
 import Test.Assert (assert, ASSERT)
 
 import Learn.IO as IO
--- import Learn.Supervised.LinearRegression (coefficients, train)
+import Learn.Math.Matrix as M
+import Learn.Supervised.LinearRegression (coefficients, train)
 
 
 testLinearRegression :: forall eff. Eff (console :: CONSOLE, assert :: ASSERT, exception :: EXCEPTION, fs :: FS  | eff) Unit
@@ -23,8 +24,11 @@ testFromFile :: forall eff. Eff (console :: CONSOLE, assert :: ASSERT, exception
 testFromFile = do
   log " * From linear1.csv file"
   csv <- readTextFile UTF8 "testdata/linear1.csv"
-  let ds = IO.fromCsv csv
+  let mat = IO.fromCsv csv
   assert true
-  -- let (Tuple xs y) = M.split (0..1) 
-  -- let model = train ds []
+  let xs = M.sliceCols 0 0 mat
+  let y = M.toVector $ M.sliceCols 1 1 mat
+  let model = train xs y
+  log $ show model
+  assert true
   -- assert $ coefficients model == [-4.0, 0.8]
