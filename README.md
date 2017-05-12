@@ -23,7 +23,7 @@ bower install purescript-learn
 ## Features
 
   * Regression
-    * [ ] Linear regression
+    * [x] Linear regression
   * Classification
     * [ ] Logistic regression
   * Anomaly detection

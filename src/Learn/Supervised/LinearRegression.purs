@@ -11,7 +11,6 @@ import Prelude
 import Data.Array as A 
 import Data.Int (toNumber)
 import Data.Maybe (fromMaybe)
-import Math (abs)
 
 import Learn.Math.Matrix as M 
 import Learn.Math.Vector as V
@@ -35,10 +34,10 @@ coefficients (Model cs) = cs
 train :: Matrix     -- ^ Train data
       -> Vector     -- ^ Target values
       -> Model      -- ^ Trained model
-train xs y = Model $ gradientDescent initCoef 1 (M.insertCol 0 b xs) y
+train xs y = Model $ gradientDescent initCoef 1000 (M.insertCol 0 b xs) y
   where 
     initCoef = A.replicate (M.ncols xs + 1) 1.0
-    b = A.replicate (M.ncols xs + 1) 1.0
+    b = A.replicate (M.nrows xs) 1.0
 
 
 -- | Predict values based on trained model      
@@ -55,23 +54,7 @@ predict1 (Model cs) x = fromMaybe 0.0 $ V.dot cs (A.cons 1.0 x)
 
 -- Learning rate
 alpha :: Number
-alpha = 1.0
-
--- Stop if error less then epsilon
-epsilon :: Number
-epsilon = 0.01
-
--- Helper function for prediction of single sample
--- This function assumes that feature vectors contains additional 1.0
--- for intercept.
-score :: Vector   -- ^ Model coefficients
-      -> Vector   -- ^ Features with bias term
-      -> Number   -- ^ Expected value 
-      -> Number   -- ^ Error term
-score cs x y = h - y
-  where
-    h = fromMaybe 0.0 $ V.dot cs x
-
+alpha = 0.1
 
 -- Learn model coefficients using gradient descent algorithm
 gradientDescent :: Vector   -- ^ Model coefficients
@@ -79,19 +62,16 @@ gradientDescent :: Vector   -- ^ Model coefficients
                 -> Matrix   -- ^ Train data
                 -> Vector   -- ^ Labels 
                 -> Vector   -- ^ Trained model coefficients
-gradientDescent cs steps xs y = A.concat err --cs' --if steps <= 1
-                                -- then cs' 
-                                -- else gradientDescent cs' (steps-1) xs y
+gradientDescent cs steps xs y = if steps <= 1
+                                then cs' 
+                                else gradientDescent cs' (steps-1) xs y
   where
-    err = A.zipWith f (M.rows xs) y
-    f row y1 = row --V.mulScalar (score cs row y1) row
+    hx = M.toVector $ M.multiply xs (M.fromColumn cs)
+    es = A.concat $ A.zipWith f (V.diff hx y) (M.rows xs)
+    f d rs = V.mulScalar d rs
     norm = alpha / toNumber (M.nrows xs)
-    gradient = map V.sum (M.columns xs)
+    ex = fromMaybe (M.zeros 1 1) $ M.fromArray (A.length y) (A.length cs) es
+    gradient = map V.sum (M.columns ex)
     cs' = V.diff cs (V.mulScalar norm gradient)
 
 
--- Helper summing absolute values
--- Values don't have to be equal. It is enough if they are
--- closer then epsilon value
-absSum :: Vector -> Number
-absSum vs = V.sum $ map abs vs
