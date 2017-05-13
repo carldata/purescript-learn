@@ -14,7 +14,7 @@ import Prelude
 import Data.Array as A
 import Data.Int (toNumber)
 import Data.Tuple (Tuple(..))
-import Learn.Math.Vector (Vector)
+import LinearAlgebra.Vector (Vector)
   
 
 type ConfusionMatrix = 

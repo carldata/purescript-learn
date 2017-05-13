@@ -12,7 +12,8 @@ import Test.Assert (assert, ASSERT)
 
 import Test.Helper ((~=))
 import Learn.IO as IO
-import Learn.Math.Matrix as M
+import LinearAlgebra.Matrix as M
+
 import Learn.Supervised.LinearRegression (coefficients, train)
 
 

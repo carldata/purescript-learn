@@ -9,7 +9,7 @@ import Node.FS (FS)
 import Node.FS.Sync (readTextFile)
 import Test.Assert (assert, ASSERT)
 
-import Learn.Math.Matrix as M
+import LinearAlgebra.Matrix as M
 import Learn.IO as IO
 
 

@@ -6,8 +6,8 @@ import Data.Maybe (fromMaybe)
 import Data.String as S
 import Global (readFloat)
 
-import Learn.Math.Matrix as M
-import Learn.Math.Vector (Vector)
+import LinearAlgebra.Matrix as M
+import LinearAlgebra.Vector (Vector)
 
 
 -- | Load all columns from CSV. 

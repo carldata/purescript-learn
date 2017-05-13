@@ -5,7 +5,7 @@ import Data.Array as A
 import Data.Int (toNumber)
 import Math (pow)
 
-import Learn.Math.Vector as V
+import LinearAlgebra.Vector as V
 
 
 -- | Calculate Mean Square Error

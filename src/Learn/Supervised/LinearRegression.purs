@@ -12,8 +12,8 @@ import Data.Array as A
 import Data.Int (toNumber)
 import Data.Maybe (fromMaybe)
 
-import Learn.Math.Matrix as M 
-import Learn.Math.Vector as V
+import LinearAlgebra.Matrix as M 
+import LinearAlgebra.Vector as V
 
 
 -- Helper types 
